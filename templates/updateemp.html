@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h1>DISPLAY DATA AFTER UPDATION</h1>
+        <table border="3px">
+            <tr>
+                <th>ename</th>
+                <th>empno</th>
+                <th>job</th>
+                <th>hiredate</th>
+                <th>sal</th>
+                <th>comm</th>
+                <th>deptno</th>
+            </tr>
+
+            {% for ep in EMPO %}
+                <tr>
+                    <td>{{ ep.ename }}</td>
+                    <td>{{ ep.empno }}</td>
+                    <td>{{ ep.job }}</td>
+                    <td>{{ ep.hiredate }}</td>
+                    <td>{{ ep.sal }}</td>
+                    <td>{{ ep.comm }}</td>
+                    <td>{{ ep.deptno }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+</html>
