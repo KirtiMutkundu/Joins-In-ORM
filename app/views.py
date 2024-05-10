@@ -62,4 +62,21 @@ def empmgrdept(request):
     d={'EMDJD':EMDJD}
     return render(request,'empmgrdept.html',d)
 
+def update_emp(request):
+    #Updating Query
 
+    Emp.objects.filter(ename='Priyanka').update(job='Clerk')#update donot create variable
+    Emp.objects.filter(job='Manager').update(sal=2000)#managers sal updated to 2000
+    Emp.objects.filter(ename='Jasmin').update(deptno=10)#update method takes VALUE of parent table directly
+    Emp.objects.update_or_create(ename='Alekya', defaults={'sal':1500})
+    Emp.objects.update_or_create(job='President', defaults={'sal':5000})
+    #Emp.objects.update_or_create(job='Analyst', defaults={'deptno':40})#Emp.deptno must be a "Dept" instance
+    #Therefore for above statement create an Object bz update_or_create method takes OBJECT of parent table
+    DO=Dept.objects.get(deptno=40)
+    Emp.objects.update_or_create(job='Analyst', defaults={'deptno':DO})#update_or_create method takes OBJECT
+    MO=Emp.objects.get(empno=3333)
+    Emp.objects.update_or_create(job='Teacher',defaults={"ename":'Gargi','empno':6666,'hiredate':'1999-03-19','sal':3500,'comm':50,'deptno':DO,'mgr':MO})
+
+    EMPO=Emp.objects.all()
+    d={'EMPO':EMPO}
+    return render(request,'updateemp.html',context=d)
