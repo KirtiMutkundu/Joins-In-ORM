@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h1>DISPLAY DATA AFTER DELETION</h1>
+        <table border="3px">
+            <tr>
+                <th>ename</th>
+                <th>empno</th>
+                <th>job</th>
+                <th>hiredate</th>
+                <th>sal</th>
+                <th>comm</th>
+                <th>deptno</th>
+                <th>mgr</th>
+            </tr>
+
+            {% for dp in DEPO %}
+                <tr>
+                    <td>{{ dp.ename }}</td>
+                    <td>{{ dp.empno }}</td>
+                    <td>{{ dp.job }}</td>
+                    <td>{{ dp.hiredate }}</td>
+                    <td>{{ dp.sal }}</td>
+                    <td>{{ dp.comm }}</td>
+                    <td>{{ dp.deptno }}</td>
+                    <td>{{ dp.mgr }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+</html>

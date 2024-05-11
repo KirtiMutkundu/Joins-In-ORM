@@ -80,3 +80,15 @@ def update_emp(request):
     EMPO=Emp.objects.all()
     d={'EMPO':EMPO}
     return render(request,'updateemp.html',context=d)
+
+def delete_emp(request):
+
+    Emp.objects.filter(ename='Gargi').delete()#gargi row deleted
+    Emp.objects.filter(job='Manager').delete()
+    Emp.objects.filter(deptno=30).delete()
+    Dept.objects.filter(dname='Accounting').delete()#delete parent table data, so child table data also deleted
+    #Emp.objects.delete().....deletes entire Emp table rows
+    DEPO=Emp.objects.all()
+    d={'DEPO':DEPO}
+
+    return render(request,'deleteemp.html',d)

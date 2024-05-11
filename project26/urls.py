@@ -23,4 +23,7 @@ urlpatterns = [
     path('selfjoins/',selfjoins,name='selfjoins'),
     path('empmgrdept/',empmgrdept,name='empmgrdept'),
     path('update_emp/',update_emp,name='update_emp'),
+    path('delete_emp/',delete_emp,name='delete_emp'),
+
+   
 ]
