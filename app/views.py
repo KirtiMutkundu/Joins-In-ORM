@@ -2,6 +2,7 @@ from django.shortcuts import render
 from app.models import *
 from django.db.models import Q
 from django.db.models.functions import Length
+from django.db.models import *
 # Create your views here.
 def innerEquijoins(request):
     JDED=Emp.objects.select_related('deptno').all()
@@ -27,6 +28,19 @@ def innerEquijoins(request):
     JDED=Emp.objects.select_related('deptno').filter(Q(deptno='10') | Q(deptno__loc='Dallas'))
     JDED=Emp.objects.select_related('deptno').filter(ename__contains='r')# import Length for contains
 
+    #displaying the details of emp whose sal is greater or equal to average salary
+    AVGSAL=Emp.objects.aggregate(sal_avg=Avg('sal'))['sal_avg']
+    JDED=Emp.objects.select_related('deptno').filter(sal__gte=AVGSAL)
+    JDED=Emp.objects.select_related('deptno').filter(sal__lte=AVGSAL)
+    print(JDED)
+    #Annotate
+    EGAD=Emp.objects.values('deptno').annotate(g_a_s=Avg('sal'))
+    print(EGAD)
+    #WAQ to display deptno whose dept avg sal is greater than avg sal of all employees
+    AEAS=Emp.objects.aggregate(A_E_A_S=Avg('sal'))['A_E_A_S']
+    Emp.objects.values('deptno').annotate(G_A_S=Avg('sal')).filter(G_A_S__gte=AEAS)
+    print(AEAS)
+    
     
     d={'JDED':JDED}
     return render(request,'innerEquijoins.html', d)
@@ -58,6 +72,16 @@ def empmgrdept(request):
     EMDJD=Emp.objects.extra(where=["LENGTH(ename) = 5 or LENGTH(ename) = 6 "])
     EMDJD=Emp.objects.extra(where=["ename like'%i' "])#checks last letter
     EMDJD=Emp.objects.extra(where=["ename like'J%' "])#checks first letter
+    
+    #Aggregate
+    EAD=Emp.objects.aggregate(sal_sum=Sum('sal'))# gives dictionary ie key-value pairs
+    EAD=Emp.objects.aggregate(sal_sum=Sum('sal'))['sal_sum']# gives only values
+    EAD=Emp.objects.aggregate(sal_avg=Avg('sal'))#o/p {'sal_avg': Decimal('7680')}
+    EAD=Emp.objects.aggregate(date_max=Max('hiredate'))#o/p {'date_max': datetime.date(2024, 5, 14)}
+    EAD=Emp.objects.aggregate(date_min=Min('hiredate'))#o/p {'date_min': datetime.date(2021, 5, 15)}
+    EAD=Emp.objects.aggregate(sal_count=Count('sal'))#o/p {'sal_count': 5}
+    
+    print(EAD)
 
     d={'EMDJD':EMDJD}
     return render(request,'empmgrdept.html',d)
